@@ -137,7 +137,7 @@
             android:orientation="horizontal">
 
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView7"
                 android:layout_width="300dp"
                 android:layout_height="100dp"
