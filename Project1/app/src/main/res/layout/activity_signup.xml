@@ -43,9 +43,10 @@
                 android:layout_weight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_usernmae"
                     android:layout_width="300dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:hint="Enter Username" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,9 +75,10 @@
                     android:layout_weight="1">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_password"
                         android:layout_width="300dp"
-                        android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:hint="Enter Password" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,9 +107,10 @@
                     android:layout_weight="1">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_email"
                         android:layout_width="300dp"
-                        android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:hint="Enter Email" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,9 +139,10 @@
                     android:layout_weight="1">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input__gender"
                         android:layout_width="300dp"
-                        android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:hint="Gender" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -169,9 +173,10 @@
                     android:layout_weight="1">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_phn"
                         android:layout_width="300dp"
-                        android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:hint="Enter Phone" />
 
                 </com.google.android.material.textfield.TextInputLayout>

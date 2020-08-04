@@ -4,24 +4,31 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class Login extends AppCompatActivity {
-
+    EditText musername,mpassword;
     Button mlogin;
-    TextView createac;
+    TextView createac,forgotpassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-    mlogin = (Button)findViewById(R.id.btnlogin);
-    createac = (TextView)findViewById(R.id.ca);
+        musername = (EditText)findViewById(R.id.input_usernmae);
+        mpassword = (EditText)findViewById(R.id.input_password);
+        mlogin = (Button)findViewById(R.id.btnlogin);
+        createac = (TextView)findViewById(R.id.ca);
+        forgotpassword = (TextView)findViewById(R.id.forgotpass);
 
     mlogin.setOnClickListener(new View.OnClickListener() {
+
         @Override
         public void onClick(View v) {
+
             openhome();
         }
     });
