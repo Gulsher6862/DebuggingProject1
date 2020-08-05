@@ -4,16 +4,16 @@
         tools:showIn="navigation_view">
         <group android:checkableBehavior="single">
             <item
-                android:id="@+id/nav_message"
-                android:icon="@drawable/order"
+                android:id="@+id/nav_order"
+                android:icon="@drawable/shoppingcart"
                 android:title="My Orders" />
             <item
-                android:id="@+id/nav_chat"
+                android:id="@+id/nav_policy"
                 android:icon="@drawable/policy"
                 android:title="PoliciesActivity" />
             <item
-                android:id="@+id/nav_profile"
-                android:icon="@drawable/addcard"
+                android:id="@+id/nav_card"
+                android:icon="@drawable/creditcard"
                 android:title="add card" />
         </group>
         <item android:title="Communicate">
@@ -23,8 +23,8 @@
                     android:icon="@drawable/share"
                     android:title="Share" />
                 <item
-                    android:id="@+id/nav_send"
-                    android:icon="@drawable/logout"
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/exit"
                     android:title="Logout" />
             </menu>
         </item>
