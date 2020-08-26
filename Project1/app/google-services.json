@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "624524250544",
+    "firebase_url": "https://perfume-343ba.firebaseio.com",
+    "project_id": "perfume-343ba",
+    "storage_bucket": "perfume-343ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624524250544:android:460e50cb086aa43c4fda75",
+        "android_client_info": {
+          "package_name": "com.example.project1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624524250544-tenj0393ehre97nh3c5h22aoljfubj55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUyPrv9j2TRTl-wTEJBhoK-CiAVdAZinA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624524250544-tenj0393ehre97nh3c5h22aoljfubj55.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
