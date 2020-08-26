@@ -31,7 +31,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/user" />
+                app:srcCompat="@drawable/phone" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -39,10 +39,12 @@
                 android:layout_weight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_number"
                     android:layout_width="300dp"
                     android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Username" />
+                    android:inputType="number"
+                    android:hint="Enter Phone Number" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -70,9 +72,11 @@
                 android:layout_weight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_password"
                     android:layout_width="300dp"
                     android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content"
+                    android:inputType="textPassword"
                     android:hint="Enter Password" />
             </com.google.android.material.textfield.TextInputLayout>
 
