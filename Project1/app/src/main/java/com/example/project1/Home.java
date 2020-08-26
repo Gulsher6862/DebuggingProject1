@@ -14,6 +14,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import io.paperdb.Paper;
+
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
 
@@ -53,6 +55,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 startActivity(new Intent(Home.this,Share.class));
                 break;
             case R.id.nav_logout:
+                Paper.book().destroy();
                 Toast.makeText(Home.this,"Successfully Signed Out", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(Home.this,Logout.class));
                 break;

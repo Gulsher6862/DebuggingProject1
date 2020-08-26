@@ -14,16 +14,24 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.project1.Model.Users;
+import com.example.project1.Prevelant.Prevelant;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+
+import io.paperdb.Paper;
 
 public class Signup extends AppCompatActivity {
 
@@ -31,6 +39,8 @@ public class Signup extends AppCompatActivity {
     Button msignup;
     TextView mhaveaccount;
     private ProgressDialog mProgressDialog;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference userCollection = db.collection("Users");
 
 
     @Override
@@ -102,51 +112,23 @@ public class Signup extends AppCompatActivity {
       mProgressDialog.setCanceledOnTouchOutside(false);
       mProgressDialog.show();
 
-      ValidatePhoneNo(name,phone,password);
+      Users newUser = new Users(name,phone,password);
+      userCollection.document(phone).set(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+          @Override
+          public void onSuccess(Void aVoid) {
+            mProgressDialog.dismiss();
+            Toast.makeText(getApplicationContext(),"Account created successfully",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(),Login.class);
+            startActivity(intent);
+          }
+      }).addOnFailureListener(new OnFailureListener() {
+          @Override
+          public void onFailure(@NonNull Exception e) {
+           mProgressDialog.dismiss();
+              Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+          }
+      });
+
     }
-
-    private void ValidatePhoneNo(final String name, final String phone, final String password) {
-
-        final DatabaseReference RootRef;
-        RootRef = FirebaseDatabase.getInstance().getReference();
-
-        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!snapshot.child("Users").child(phone).exists()){
-                    HashMap<String,Object> userMap = new HashMap<>();
-                    userMap.put("phone",phone);
-                    userMap.put("password",password);
-                    userMap.put("name",name);
-                    RootRef.child("Users").child(phone).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                mProgressDialog.dismiss();
-                                Toast.makeText(getApplicationContext(),"Account created successfully",Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(getApplicationContext(),Login.class);
-                                startActivity(intent);
-                            }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            mProgressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }else{
-                    Toast.makeText(getApplicationContext(),"this number already exists...",Toast.LENGTH_LONG).show();
-                    mProgressDialog.dismiss();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
 
 }

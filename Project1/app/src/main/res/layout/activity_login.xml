@@ -43,7 +43,7 @@
                     android:layout_width="300dp"
                     android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:hint="Enter Phone Number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,8 +80,19 @@
                     android:hint="Enter Password" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
         </LinearLayout>
+
+
+
+        <CheckBox
+            android:id="@+id/remember_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="remember me"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="40dp">
+        </CheckBox>
 
 
         <Button
@@ -95,11 +106,35 @@
             android:textColor="@android:color/holo_orange_light" />
 
         <TextView
+            android:id="@+id/tv_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:inputType="text"
+            android:text="Click here for Admin Login..."
+            android:visibility="visible"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/tv_not_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:inputType="text"
+            android:text="Click here for user login..."
+            android:visibility="gone"
+            android:textColor="#000" />
+
+        <TextView
             android:id="@+id/ca"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             android:gravity="center_horizontal"
             android:inputType="text"
             android:text="Create account here!"
@@ -113,7 +148,7 @@
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
             android:inputType="text"
-            android:text="Forgotpassword? Click here!"
+            android:text="Forgot Password? Click here!"
 
             android:textColor="#000" />
 
