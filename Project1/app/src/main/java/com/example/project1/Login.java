@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project1.Model.Users;
+import com.example.project1.Prevelant.Prevelant;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -83,6 +84,7 @@ public class Login extends AppCompatActivity {
             admin.setVisibility(View.GONE);
             notAdmin.setVisibility(View.VISIBLE);
             parentDBName = "Admins";
+            rememberMe.setVisibility(View.GONE);
         }
     });
 
@@ -93,6 +95,7 @@ public class Login extends AppCompatActivity {
             admin.setVisibility(View.VISIBLE);
             notAdmin.setVisibility(View.GONE);
             parentDBName = "Users";
+            rememberMe.setVisibility(View.VISIBLE);
         }
     });
 
@@ -109,6 +112,11 @@ public class Login extends AppCompatActivity {
     }
 
     private void checkAccess(String phone, final String password){
+
+        if(rememberMe.isChecked()){
+            Paper.book().write(Prevelant.userPhone,phone);
+            Paper.book().write(Prevelant.userPassword,password);
+        }
 
         DocumentReference docIdRef = db.collection(parentDBName).document(phone);
         docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
