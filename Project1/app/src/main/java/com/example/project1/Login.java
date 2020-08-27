@@ -130,6 +130,7 @@ public class Login extends AppCompatActivity {
                      if(password.equals(currentUser.getPassword())){
                          if(parentDBName.equals("Users")){
                              Toast.makeText(Login.this, "Successfully Logged In...", Toast.LENGTH_SHORT).show();
+                             Prevelant.currentUser = currentUser;
                              startActivity(new Intent(getApplicationContext(),Home.class));
                          }else{
                              Toast.makeText(Login.this, "Welcome Admin...", Toast.LENGTH_SHORT).show();

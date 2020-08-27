@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.Model.Products;
+import com.example.project1.Prevelant.Prevelant;
 import com.example.project1.ViewHolder.ProductViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -30,6 +32,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
+import java.security.Policy;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,6 +55,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerView = navigationView.getHeaderView(0);
+        TextView userNameTv = headerView.findViewById(R.id.username);
+        CircleImageView profileImageView = headerView.findViewById(R.id.profile_image);
+
+        userNameTv.setText(Prevelant.currentUser.getName());
+        Picasso.get().load(Prevelant.currentUser.getImage()).placeholder(R.drawable.men).into(profileImageView);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -73,17 +84,21 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
+            case R.id.nav_cart:
+                break;
             case R.id.nav_order:
-                startActivity(new Intent(Home.this,MyOrders.class));
+                startActivity(new Intent(getApplicationContext(),MyOrders.class));
+                break;
+            case R.id.nav_settings:
+                startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
                 break;
             case R.id.nav_policy:
-                startActivity(new Intent(Home.this,MyPolicies.class));
+                startActivity(new Intent(getApplicationContext(),Policies.class));
                 break;
             case R.id.nav_card:
-                startActivity(new Intent(Home.this,MyCards.class));
+                startActivity(new Intent(getApplicationContext(),AddCard.class));
                 break;
             case R.id.nav_share:
-                startActivity(new Intent(Home.this,Share.class));
                 break;
             case R.id.nav_logout:
                 Paper.book().destroy();

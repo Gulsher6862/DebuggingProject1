@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bottom_sheet_container"
-    android:scrollbars="none"
-    android:overScrollMode="never"
     android:layout_width="match_parent"
-    android:theme="@style/AppTheme"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    tools:context=".AddCard">
 
     <RelativeLayout
         android:background="@drawable/bottom_sheet_background"
@@ -169,4 +167,5 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp" />
     </RelativeLayout>
+
 </ScrollView>

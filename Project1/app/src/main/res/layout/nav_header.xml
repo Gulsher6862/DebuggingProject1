@@ -25,7 +25,7 @@
         android:paddingTop="8dp"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:text="Aman Mehta"
+        android:text="Username"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="4dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />

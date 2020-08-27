@@ -147,7 +147,7 @@ public class Signup extends AppCompatActivity {
       mProgressDialog.setCanceledOnTouchOutside(false);
       mProgressDialog.show();
 
-      Users newUser = new Users(name,phone,password);
+      Users newUser = new Users(name,phone,password,null,null);
       userCollection.document(phone).set(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
           @Override
           public void onSuccess(Void aVoid) {
