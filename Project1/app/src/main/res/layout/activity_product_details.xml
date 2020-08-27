@@ -66,6 +66,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/product_desc"
         android:layout_margin="20dp"
+        app:backGroundColor="@color/green"
         >
 
     </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>

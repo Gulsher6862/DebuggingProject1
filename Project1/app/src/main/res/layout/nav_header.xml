@@ -7,18 +7,27 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_marginTop="10dp"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/men"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FFFFFF"/>
+    
     <TextView
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="ashwini"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="Aman Mehta"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="4dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="chaitankar.com" />
+
 </LinearLayout>

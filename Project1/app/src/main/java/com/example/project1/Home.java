@@ -87,8 +87,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 break;
             case R.id.nav_logout:
                 Paper.book().destroy();
-                Toast.makeText(Home.this,"Successfully Signed Out", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Home.this,Logout.class));
+                Intent intent = new Intent(Home.this,Signup.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                Toast.makeText(this, "Logged Out...", Toast.LENGTH_SHORT).show();
                 break;
         }
 
