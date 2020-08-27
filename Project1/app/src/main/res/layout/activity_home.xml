@@ -134,7 +134,6 @@
 
         </LinearLayout>
 
-
             <TextView
                 android:id="@+id/textVi"
                 android:layout_width="match_parent"
