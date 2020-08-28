@@ -39,7 +39,7 @@ import io.paperdb.Paper;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-    private ImageView menImage,womenImage,newArrivals,burberry,tomford,saintLaurent,prada;
+    private ImageView menImage,womenImage,newArrivals,burberry,tomford,saintLaurent,prada,bvlgari,versace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         tomford = findViewById(R.id.imageView8);
         saintLaurent = findViewById(R.id.imageView9);
         prada = findViewById(R.id.imageView10);
+        bvlgari = findViewById(R.id.imageView11);
+        versace = findViewById(R.id.imageView12);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -117,6 +119,20 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),Prada.class));
+            }
+        });
+
+        bvlgari.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),Bvlgari.class));
+            }
+        });
+
+        versace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),Versace.class));
             }
         });
     }
