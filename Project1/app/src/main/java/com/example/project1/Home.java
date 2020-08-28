@@ -39,7 +39,7 @@ import io.paperdb.Paper;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-    private ImageView menImage,womenImage;
+    private ImageView menImage,womenImage,newArrivals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
+        newArrivals = findViewById(R.id.imageView4);
         menImage = findViewById(R.id.imageView6);
         womenImage = findViewById(R.id.imageView5);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -65,6 +66,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        newArrivals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),NewArrivalsActivity.class));
+            }
+        });
 
         menImage.setOnClickListener(new View.OnClickListener() {
             @Override
