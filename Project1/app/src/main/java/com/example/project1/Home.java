@@ -39,7 +39,7 @@ import io.paperdb.Paper;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-    private ImageView menImage,womenImage,newArrivals,burberry,tomford,saintLaurent,prada,bvlgari,versace;
+    private ImageView menImage,womenImage,newArrivals,burberry,tomford,saintLaurent,prada,bvlgari,versace,dolce,christianDior,gucci,chanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         prada = findViewById(R.id.imageView10);
         bvlgari = findViewById(R.id.imageView11);
         versace = findViewById(R.id.imageView12);
+        dolce = findViewById(R.id.imageView13);
+        christianDior = findViewById(R.id.imageView14);
+        gucci = findViewById(R.id.imageView15);
+        chanel = findViewById(R.id.imageView16);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -133,6 +137,34 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),Versace.class));
+            }
+        });
+
+        dolce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),DolceAndGabbana.class));
+            }
+        });
+
+        christianDior.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),ChristianDior.class));
+            }
+        });
+
+        gucci.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),Gucci.class));
+            }
+        });
+
+        chanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),Chanel.class));
             }
         });
     }
