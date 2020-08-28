@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConfirmOrder">
+    
+<!--    Title-->
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm Shipment Details"
+        android:textSize="20dp"
+        android:textColor="@color/red2"
+        android:layout_margin="15dp"
+        android:gravity="center"
+        android:textStyle="bold">
+
+    </TextView>
+    
+<!--    Name-->
+    <EditText
+        android:id="@+id/shipment_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_confirm"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:hint="Name">
+
+    </EditText>
+
+<!--    Phone Number-->
+    <EditText
+        android:id="@+id/shipment_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shipment_name"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:hint="Phone Number">
+
+    </EditText>
+
+<!--    Shipping Address-->
+    <EditText
+        android:id="@+id/shipment_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shipment_number"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:hint="Shipping Address">
+
+    </EditText>
+
+<!--    Shipping City-->
+    <EditText
+        android:id="@+id/shipment_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shipment_address"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:hint="Shipping City">
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/order_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/place_order_btn"
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:textColor="@color/red2"
+        android:textStyle="bold"
+        android:text="Order Total : "></TextView>
+    
+<!--    Button-->
+    <Button
+        android:id="@+id/place_order_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Place Order"
+        android:background="#000"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="18sp">
+
+    </Button>
+
+</RelativeLayout>

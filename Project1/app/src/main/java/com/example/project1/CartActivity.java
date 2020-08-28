@@ -34,6 +34,7 @@ public class CartActivity extends AppCompatActivity {
     private TextView totalAmount;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference cartRef = db.collection("Cart");
+    private int totalPrice = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +46,22 @@ public class CartActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         checkoutButton = findViewById(R.id.checkout_btn);
-        totalAmount = findViewById(R.id.total_price);
+
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),ConfirmOrder.class);
+                intent.putExtra("Total Price",String.valueOf(totalPrice));
+                startActivity(intent);
+            }
+        });
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
+        totalPrice = 0;
         FirestoreRecyclerOptions<Cart> options = new FirestoreRecyclerOptions.Builder<Cart>()
                 .setQuery(cartRef.document(Prevelant.currentUser.getPhone()).collection("Products"),Cart.class).build();
 
@@ -62,6 +71,9 @@ public class CartActivity extends AppCompatActivity {
                holder.txtProductQuantity.setText("Quantity : " + model.getQuantity());
                holder.txtProductPrice.setText(model.getPrice());
                holder.txtProductName.setText(model.getName());
+
+               int oneTypeProductPrice = Integer.valueOf(model.getPrice().substring(8,model.getPrice().length()-1)) * Integer.valueOf(model.getQuantity());
+               totalPrice += oneTypeProductPrice;
 
                holder.itemView.setOnClickListener(new View.OnClickListener() {
                    @Override
@@ -82,6 +94,8 @@ public class CartActivity extends AppCompatActivity {
                               }
                               //if remove option is selected
                                if(i == 1){
+                                   int reducedPrice = Integer.valueOf(model.getPrice().substring(8,model.getPrice().length()-1)) * Integer.valueOf(model.getQuantity());
+                                   totalPrice -= reducedPrice;
                                    cartRef.document(Prevelant.currentUser.getPhone()).collection("Products").document(model.getPid()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                        @Override
                                        public void onComplete(@NonNull Task<Void> task) {
