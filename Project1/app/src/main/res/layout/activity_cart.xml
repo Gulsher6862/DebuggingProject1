@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CartActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/cart_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#000">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+
+            <TextView
+                android:id="@+id/total_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Total Price = "
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_orange_light">
+
+            </TextView>
+
+        </RelativeLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cart_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cart_appbar"
+        android:layout_above="@+id/checkout_btn">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/checkout_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#000"
+        android:text="Proceed To Checkout"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="16sp">
+    </Button>
+
+</RelativeLayout>
