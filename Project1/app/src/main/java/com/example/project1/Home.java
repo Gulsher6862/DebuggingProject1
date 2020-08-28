@@ -85,6 +85,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         switch (item.getItemId()) {
             case R.id.nav_cart:
+                startActivity(new Intent(getApplicationContext(),CartActivity.class));
                 break;
             case R.id.nav_order:
                 startActivity(new Intent(getApplicationContext(),MyOrders.class));

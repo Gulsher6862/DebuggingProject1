@@ -3,6 +3,8 @@ package com.example.project1;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +41,7 @@ public class ProductDetails extends AppCompatActivity {
     private CollectionReference productCollection = db.collection("Products");
     private DocumentReference productRef;
     private CollectionReference cartRef = db.collection("Cart");
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class ProductDetails extends AppCompatActivity {
         productDescription = findViewById(R.id.product_desc);
         productId = getIntent().getStringExtra("pid");
         productRef = productCollection.document(productId);
+        mProgressDialog = new ProgressDialog(this);
         
         getProductDetails(productId);
 
@@ -60,6 +64,10 @@ public class ProductDetails extends AppCompatActivity {
         addtoCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mProgressDialog.setTitle("Add To Cart");
+                mProgressDialog.setMessage("Adding product to cart, please wait...");
+                mProgressDialog.setCanceledOnTouchOutside(false);
+                mProgressDialog.show();
                 addtoCartList();
             }
         });
@@ -87,11 +95,14 @@ public class ProductDetails extends AppCompatActivity {
         cartRef.document(Prevelant.currentUser.getPhone()).collection("Products").document(productId).set(cartMap).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
+                mProgressDialog.dismiss();
                 Toast.makeText(ProductDetails.this, "Added to Cart...", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),CartActivity.class));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                mProgressDialog.dismiss();
                 Toast.makeText(ProductDetails.this,e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
