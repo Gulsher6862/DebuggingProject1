@@ -20,18 +20,26 @@
         <activity android:name=".TomFord" />
         <activity android:name=".Burberry" />
         <activity android:name=".NewArrivalsActivity" />
-        <activity android:name=".MyOrders" />
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".MyOrders" />
         <activity android:name=".ConfirmOrder" />
-        <activity android:name=".CartActivity" />
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".CartActivity" />
         <activity android:name=".AddCard" />
-        <activity android:name=".Policies" />
+        <activity
+            android:name=".Policies" />
         <activity android:name=".ProductDetails" />
-        <activity android:name=".SettingsActivity" />
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".SettingsActivity" />
         <activity android:name=".WomenPerfumes" />
         <activity android:name=".MenPerfumes" />
         <activity android:name=".AdminPanel" />
-        <activity android:name=".HamburgerDrawable" />
-        <activity android:name=".Home" />
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".Home" />
         <activity android:name=".Login" />
         <activity android:name=".Signup" />
         <activity
