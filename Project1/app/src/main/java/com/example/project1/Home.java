@@ -39,7 +39,7 @@ import io.paperdb.Paper;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-    private ImageView menImage,womenImage,newArrivals;
+    private ImageView menImage,womenImage,newArrivals,burberry,tomford,saintLaurent,prada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         newArrivals = findViewById(R.id.imageView4);
         menImage = findViewById(R.id.imageView6);
         womenImage = findViewById(R.id.imageView5);
+        burberry = findViewById(R.id.imageView7);
+        tomford = findViewById(R.id.imageView8);
+        saintLaurent = findViewById(R.id.imageView9);
+        prada = findViewById(R.id.imageView10);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -85,6 +89,34 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),WomenPerfumes.class));
+            }
+        });
+
+        burberry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),Burberry.class));
+            }
+        });
+
+        tomford.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),TomFord.class));
+            }
+        });
+
+        saintLaurent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),SaintLaurent.class));
+            }
+        });
+
+        prada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),Prada.class));
             }
         });
     }
