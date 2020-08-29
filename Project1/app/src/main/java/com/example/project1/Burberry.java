@@ -35,6 +35,7 @@ public class Burberry extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_burberry);
 
+        //setting app bar and title
         getSupportActionBar().setTitle("Burberry Perfumes");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -44,10 +45,12 @@ public class Burberry extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        //create firestore recycler options
         FirestoreRecyclerOptions<Products> options = new FirestoreRecyclerOptions.Builder<Products>()
                 .setQuery(mQuery, Products.class)
                 .build();
 
+        //create firestore adapter
         FirestoreRecyclerAdapter<Products, ProductViewHolder> adapter = new FirestoreRecyclerAdapter<Products, ProductViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull final Products model) {
@@ -56,6 +59,7 @@ public class Burberry extends AppCompatActivity {
                 holder.productPrice.setText("Price : " +model.getPrice()+"$");
                 Picasso.get().load(model.getImage()).into(holder.productImage);
 
+                //set click listener to the holder
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -74,6 +78,7 @@ public class Burberry extends AppCompatActivity {
                 return holder;
             }
         };
+        //set adapter to recycler view
         mRecyclerView.setAdapter(adapter);
         adapter.startListening();
     }

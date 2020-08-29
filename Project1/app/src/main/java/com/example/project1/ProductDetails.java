@@ -49,6 +49,7 @@ public class ProductDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
+        //setting appbar and title
         getSupportActionBar().setTitle("Product Detail");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -62,7 +63,8 @@ public class ProductDetails extends AppCompatActivity {
         productId = getIntent().getStringExtra("pid");
         productRef = productCollection.document(productId);
         mProgressDialog = new ProgressDialog(this);
-        
+
+        //method to fetch products from firestore
         getProductDetails(productId);
 
         //clicklistener on add to cart button
@@ -81,6 +83,8 @@ public class ProductDetails extends AppCompatActivity {
     //adding product details to cart
     private void addtoCartList() {
         String saveCurrentDate,saveCurrentTime;
+
+        //using calendar class to save current date and time
         Calendar dateCalendar = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
         saveCurrentDate = currentDate.format(dateCalendar.getTime());
@@ -89,6 +93,7 @@ public class ProductDetails extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(timeCalendar.getTime());
 
+        //creating hashmap to store key value pairs to be uploaded to the firestore database
         final HashMap<String,Object> cartMap = new HashMap<>();
         cartMap.put("pid",productId);
         cartMap.put("name",productName.getText().toString());
@@ -97,6 +102,7 @@ public class ProductDetails extends AppCompatActivity {
         cartMap.put("time",saveCurrentTime);
         cartMap.put("quantity",mNumberButton.getNumber());
 
+        //creating reference to firestore and setting hashmap to that path
         cartRef.document(Prevelant.currentUser.getPhone()).collection("Products").document(productId).set(cartMap).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -121,6 +127,7 @@ public class ProductDetails extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     DocumentSnapshot documentSnapshot = task.getResult();
+                    //if product having id equals to productId exists =>
                     if(documentSnapshot.exists()){
                         Products products = documentSnapshot.toObject(Products.class);
                         productName.setText("Product : " + products.getName());

@@ -49,6 +49,7 @@ public class Login extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         rememberMe = findViewById(R.id.remember_me);
 
+        //initialise paper library
         Paper.init(this);
 
     mlogin.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +59,7 @@ public class Login extends AppCompatActivity {
             String phone = mphone.getText().toString().trim();
             String password = mpassword.getText().toString().trim();
 
+            //check for empty inputs
             if(TextUtils.isEmpty(phone)){
                 mphone.setError("phone no is required...");
                 return;
@@ -65,6 +67,7 @@ public class Login extends AppCompatActivity {
                 mpassword.setError("password is required");
                 return;
             }
+
            loginUser(phone,password);
         }
     });
@@ -80,6 +83,7 @@ public class Login extends AppCompatActivity {
     admin.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            //switch to admin login
             mlogin.setText("Admin Login");
             admin.setVisibility(View.GONE);
             notAdmin.setVisibility(View.VISIBLE);
@@ -91,6 +95,7 @@ public class Login extends AppCompatActivity {
     notAdmin.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            //switch to user login
             mlogin.setText("Login");
             admin.setVisibility(View.VISIBLE);
             notAdmin.setVisibility(View.GONE);
@@ -102,22 +107,27 @@ public class Login extends AppCompatActivity {
     }
 
     private void loginUser(String phone,String password){
+
+        //show progress dialog
         mProgressDialog.setTitle("Login Account");
         mProgressDialog.setMessage("checking the credentials...");
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
 
+        //check if user is validate or not
         checkAccess(phone,password);
 
     }
 
     private void checkAccess(String phone, final String password){
 
+        //check for remember option
         if(rememberMe.isChecked()){
             Paper.book().write(Prevelant.userPhone,phone);
             Paper.book().write(Prevelant.userPassword,password);
         }
 
+        //create reference to firestore
         DocumentReference docIdRef = db.collection(parentDBName).document(phone);
         docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -125,24 +135,31 @@ public class Login extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     mProgressDialog.dismiss();
                     DocumentSnapshot document = task.getResult();
+                    //check if user exists or not
                     if (document.exists()) {
                      Users currentUser = document.toObject(Users.class);
                      if(password.equals(currentUser.getPassword())){
+                         //check if user is admin or normal user
                          if(parentDBName.equals("Users")){
+                             //user logged in
                              Toast.makeText(Login.this, "Successfully Logged In...", Toast.LENGTH_SHORT).show();
                              Prevelant.currentUser = currentUser;
                              startActivity(new Intent(getApplicationContext(),Home.class));
                          }else{
+                             //admin logged in
                              Toast.makeText(Login.this, "Welcome Admin...", Toast.LENGTH_SHORT).show();
                              startActivity(new Intent(getApplicationContext(),AdminPanel.class));
                          }
                      }else{
+                         //wrong password
                          Toast.makeText(Login.this, "wrong password entered...", Toast.LENGTH_SHORT).show();
                      }
                     } else {
+                        //user not exists
                         Toast.makeText(Login.this, "user does not exists...", Toast.LENGTH_SHORT).show();
                     }
                 } else {
+                    //network error
                     mProgressDialog.dismiss();
                     Toast.makeText(Login.this, "Error : please try again...", Toast.LENGTH_SHORT).show();
                 }

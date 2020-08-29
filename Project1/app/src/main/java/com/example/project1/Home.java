@@ -77,6 +77,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        //set click listeners on all the image views
         newArrivals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,27 +174,33 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         switch (item.getItemId()) {
             case R.id.nav_cart:
+                //redirect user to cart page
                 startActivity(new Intent(getApplicationContext(),CartActivity.class));
                 break;
             case R.id.nav_order:
+                //redirect user to my orders page
                 startActivity(new Intent(getApplicationContext(),MyOrders.class));
                 break;
             case R.id.nav_settings:
+                //redirect user to settings page
                 startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
                 break;
             case R.id.nav_policy:
+                //redirect user to policies page
                 startActivity(new Intent(getApplicationContext(),Policies.class));
                 break;
             case R.id.nav_card:
+                //redirect user to add card page
                 startActivity(new Intent(getApplicationContext(),AddCard.class));
                 break;
-            case R.id.nav_share:
-                break;
             case R.id.nav_logout:
+                //use paper library to destroy the current user info stored in android storage
                 Paper.book().destroy();
+                //redirect user to signup page
                 Intent intent = new Intent(Home.this,Signup.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+                //show toast message
                 Toast.makeText(this, "Logged Out...", Toast.LENGTH_SHORT).show();
                 break;
         }

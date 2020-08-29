@@ -65,7 +65,7 @@ public class AdminPanel extends AppCompatActivity {
         productImageRef = FirebaseStorage.getInstance().getReference().child("Product Images");
         storageRef = FirebaseStorage.getInstance().getReference();
 
-
+        //click listener for adding image
         productImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +73,7 @@ public class AdminPanel extends AppCompatActivity {
             }
         });
 
+        //click listener for add button
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +81,7 @@ public class AdminPanel extends AppCompatActivity {
                  description = productDesc.getText().toString().trim();
                  price = productPrice.getText().toString().trim();
 
+                 //checking for fields are not empty
                 if(imageUri == null){
                     Toast.makeText(getApplicationContext(),"image is required...",Toast.LENGTH_LONG).show();
                     return;
@@ -101,6 +103,8 @@ public class AdminPanel extends AppCompatActivity {
                 }else{
                     category = rbWomen.getText().toString().trim();
                 }
+
+                //method to upload product information to firestore
                 storeProductInfo();
             }
         });
@@ -114,11 +118,14 @@ public class AdminPanel extends AppCompatActivity {
     }
 
     private void storeProductInfo(){
+
+        //show progress dialog when add button is clicked
         mProgressDialog.setTitle("Uploading Image");
         mProgressDialog.setMessage("please wait...");
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
 
+        //using calendar class to save current date and time
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
         saveCurrentDate = currentDate.format(calendar.getTime());
@@ -140,40 +147,16 @@ public class AdminPanel extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
-               // Toast.makeText(AdminPanel.this, "image uploaded successfully", Toast.LENGTH_SHORT).show();
 
-//                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-//                    @Override
-//                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-//                        if(!task.isSuccessful()){
-//                            throw task.getException();
-//                        }
-//                        downloadImageUrl = filePath.getDownloadUrl().toString();
-//                        return filePath.getDownloadUrl();
-//                    }
-//                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Uri> task) {
-//                        if(task.isSuccessful()){
-//                            downloadImageUrl = task.getResult().toString();
-//                            Toast.makeText(AdminPanel.this, "getting product image url...", Toast.LENGTH_SHORT).show();
-//                            saveProductInfoToDatabase();
-//                        }
-//                    }
-//                });
-
-//               Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
-//               while(!urlTask.isSuccessful());
-//               Uri downloadUrl = urlTask.getResult();
-//               downloadImageUrl = downloadUrl.toString();
-//               saveProductInfoToDatabase();
-
+                //creating reference to firebase storage
                 StorageReference pathReference = storageRef.child("Product Images/"+imageUri.getLastPathSegment() + productKey + ".jpg");
 
                 pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
+                        //getting download url from firebase storage
                         downloadImageUrl = uri.toString();
+                        //save details to firestore
                         saveProductInfoToDatabase();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -189,6 +172,7 @@ public class AdminPanel extends AppCompatActivity {
 
     private void saveProductInfoToDatabase(){
 
+        //create hashmap to store product details
         HashMap<String,Object> productMap = new HashMap<>();
         productMap.put("pid",productKey);
         productMap.put("date",saveCurrentDate);
@@ -199,6 +183,7 @@ public class AdminPanel extends AppCompatActivity {
         productMap.put("name",name);
         productMap.put("category",category);
 
+        //set hashmap to firestore reference
         productCollection.document(productKey).set(productMap, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

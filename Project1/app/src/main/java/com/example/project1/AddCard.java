@@ -13,6 +13,7 @@ public class AddCard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_card);
 
+        //setting app bar and title
         getSupportActionBar().setTitle("Add Card");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

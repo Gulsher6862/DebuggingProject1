@@ -36,6 +36,7 @@ public class MyOrders extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.orders_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //set click to shop more
         shopMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,10 +48,11 @@ public class MyOrders extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        //crete firestore recycler option
         FirestoreRecyclerOptions<Orders> options = new FirestoreRecyclerOptions.Builder<Orders>()
                 .setQuery(orderRef.document(Prevelant.currentUser.getPhone()).collection("My Orders"),Orders.class)
                 .build();
-
+        //create firestore adapter
         FirestoreRecyclerAdapter<Orders,OrdersViewHolder> adapter = new FirestoreRecyclerAdapter<Orders, OrdersViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull OrdersViewHolder holder, int position, @NonNull Orders model) {
@@ -69,6 +71,7 @@ public class MyOrders extends AppCompatActivity {
                 return new OrdersViewHolder(view);
             }
         };
+        //set adapter to recycler view
         mRecyclerView.setAdapter(adapter);
         adapter.startListening();
     }

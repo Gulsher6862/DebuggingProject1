@@ -36,6 +36,7 @@ public class MenPerfumes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_men_perfumes);
 
+        //setting title to the app bar
         getSupportActionBar().setTitle("Men Perfumes");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -49,6 +50,7 @@ public class MenPerfumes extends AppCompatActivity {
                 .setQuery(mQuery, Products.class)
                 .build();
 
+        //Firestore adapter to set the products in the recycler view
         FirestoreRecyclerAdapter<Products, ProductViewHolder> adapter = new FirestoreRecyclerAdapter<Products, ProductViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull final Products model) {
@@ -57,6 +59,7 @@ public class MenPerfumes extends AppCompatActivity {
                 holder.productPrice.setText("Price : " +model.getPrice()+"$");
                 Picasso.get().load(model.getImage()).into(holder.productImage);
 
+                //if user clicks on any product then it is redirected to product details activity
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -75,6 +78,7 @@ public class MenPerfumes extends AppCompatActivity {
                 return holder;
             }
         };
+        //setting adapter to recycler view
         mRecyclerView.setAdapter(adapter);
         adapter.startListening();
     }

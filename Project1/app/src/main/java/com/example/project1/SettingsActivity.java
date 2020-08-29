@@ -61,8 +61,10 @@ public class SettingsActivity extends AppCompatActivity {
         updateSettings = findViewById(R.id.update_settings);
         mStorageReference = FirebaseStorage.getInstance().getReference().child("Profile Pictures");
 
+        //display current user info
         userInfoDisplay(profileImageView,name,phone,address);
 
+        //set click to close button
         closeSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,6 +72,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //set click to update button
         updateSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,11 +84,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //set click to change pic text
         changePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checker = "clicked";
 
+                //crop selected image
                 CropImage.activity(imageUri)
                         .setAspectRatio(1,1)
                         .start(SettingsActivity.this);
@@ -108,11 +113,13 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void updateOnlyUserInfo() {
+        //create hashmap to store user info
         HashMap<String,Object> userMap = new HashMap<>();
         userMap.put("name",name.getText().toString());
         userMap.put("address",address.getText().toString());
         userMap.put("phoneOrder",phone.getText().toString());
 
+        //update user info to firestore
         userCollection.document(Prevelant.currentUser.getPhone()).update(userMap);
         startActivity(new Intent(getApplicationContext(),Home.class));
         Toast.makeText(SettingsActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
@@ -120,6 +127,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void userInfoSaved() {
+        //check for empty fields
         if(TextUtils.isEmpty(phone.getText().toString())){
             phone.setError("phone is required...");
         }
@@ -135,12 +143,14 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void uploadImage() {
+        //show progress dialog
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Update Profile");
         progressDialog.setMessage("updating info, please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
+        //check for image uri not null
         if(imageUri != null){
             final StorageReference fileRef = mStorageReference.child(Prevelant.currentUser.getPhone() + ".jpg");
             uploadTask = fileRef.putFile(imageUri);
@@ -160,12 +170,14 @@ public class SettingsActivity extends AppCompatActivity {
                         Uri downloadUrl = task.getResult();
                         myUrl = downloadUrl.toString();
 
+                        //create hashmap to store user info and image url
                         HashMap<String,Object> userMap = new HashMap<>();
                         userMap.put("name",name.getText().toString());
                         userMap.put("address",address.getText().toString());
                         userMap.put("phoneOrder",phone.getText().toString());
                         userMap.put("image",myUrl);
 
+                        //update user info to firestore
                         userCollection.document(Prevelant.currentUser.getPhone()).update(userMap);
 
                         progressDialog.dismiss();
@@ -173,6 +185,7 @@ public class SettingsActivity extends AppCompatActivity {
                         Toast.makeText(SettingsActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                         finish();
                     }else{
+                        //task not successfull
                         progressDialog.dismiss();
                         Toast.makeText(SettingsActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                         finish();
@@ -180,17 +193,20 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
         }else{
+            //no image selected
             Toast.makeText(this, "image is not selected...", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void userInfoDisplay(final CircleImageView profileImageView, final EditText name, final EditText phone, final EditText address) {
+        //create firestore reference
         DocumentReference docIdRef = userCollection.document(Prevelant.currentUser.getPhone());
         docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+                    //check if user exists
                     if (document.exists()) {
                         if(document.get("image") != null){
                             String image = document.get("image").toString();
@@ -203,10 +219,11 @@ public class SettingsActivity extends AppCompatActivity {
                             address.setText(userAddress);
                         }
                     } else {
+                        //user not exists
                         Toast.makeText(getApplicationContext(), "user does not exists...", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-
+                     //network error
                     Toast.makeText(getApplicationContext(), task.getException().toString(), Toast.LENGTH_SHORT).show();
                 }
             }

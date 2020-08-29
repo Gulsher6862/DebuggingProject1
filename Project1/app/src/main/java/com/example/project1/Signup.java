@@ -40,6 +40,7 @@ public class Signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        //initialise paper library
         Paper.init(this);
 
         musername = (EditText)findViewById(R.id.input_usernmae);
@@ -51,7 +52,7 @@ public class Signup extends AppCompatActivity {
         msignup = (Button)findViewById(R.id.btnSignUp);
         mProgressDialog = new ProgressDialog(this);
 
-
+        //set click listener on signup button
         msignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +61,8 @@ public class Signup extends AppCompatActivity {
                 String Email = memail.getText().toString().trim();
                 String phoneno = mphoneno.getText().toString().trim();
                 String Gender = mgender.getText().toString().trim();
+
+                //check for empty fields
 
                 if(TextUtils.isEmpty(username)){
                     musername.setError("required username");
@@ -82,11 +85,13 @@ public class Signup extends AppCompatActivity {
                     return;
                 }
 
+                //create user account
                 createAccount(username,phoneno,password);
 
             }
         });
 
+        //if user already have account
         mhaveaccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +113,7 @@ public class Signup extends AppCompatActivity {
         }
     }
 
+    //check if user is validate or not
     private void checkAccess(String phone, final String password) {
         DocumentReference docIdRef = db.collection("Users").document(phone);
         docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -116,9 +122,12 @@ public class Signup extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     mProgressDialog.dismiss();
                     DocumentSnapshot document = task.getResult();
+                    //check if user exists
                     if (document.exists()) {
+                        //get current user
                         Users currentUser = document.toObject(Users.class);
                         if(password.equals(currentUser.getPassword())){
+                            //logged in
                             Toast.makeText(Signup.this, "Successfully Logged In...", Toast.LENGTH_SHORT).show();
                             Prevelant.currentUser = currentUser;
                             startActivity(new Intent(getApplicationContext(),Home.class));
@@ -126,6 +135,7 @@ public class Signup extends AppCompatActivity {
                             Toast.makeText(Signup.this, "wrong password entered...", Toast.LENGTH_SHORT).show();
                         }
                     } else {
+                        //user not exists
                         Toast.makeText(Signup.this, "user does not exists...", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -137,16 +147,19 @@ public class Signup extends AppCompatActivity {
     }
 
     private void openlog() {
+        //go to login page
         Intent intent = new Intent(Signup.this,Login.class);
         startActivity(intent);
     }
 
     private void createAccount(String name,String phone,String password){
+        //show progress dialog
       mProgressDialog.setTitle("Create Account");
       mProgressDialog.setMessage("checking the credentials...");
       mProgressDialog.setCanceledOnTouchOutside(false);
       mProgressDialog.show();
 
+      //create object of user model and set to firestore reference
       Users newUser = new Users(name,phone,password,null,null);
       userCollection.document(phone).set(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
           @Override
